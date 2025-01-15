@@ -1,40 +1,9 @@
 import mongoose from "mongoose";
 const Schema = mongoose.Schema;
 import bcrypt from "bcrypt";
+import Words from "./words.js";
 
 const SALT_ROUNDS = 6;
-
-const wordsSchema = new Schema({
-  category: {
-    type: String,
-    required: true,
-    enum: {
-      values: [
-        "colors",
-        "animals",
-        "counting",
-        "food",
-        "family",
-        "places",
-        "things",
-        "clothing",
-      ],
-      message: "Category must be selected",
-    },
-  },
-  word: {
-    type: String,
-    required: true,
-  },
-  image: {
-    type: String,
-    required: true,
-  },
-  audio: {
-    type: String,
-    required: true,
-  },
-});
 
 const userSchema = new Schema(
   {
@@ -61,7 +30,7 @@ const userSchema = new Schema(
     //   maxLength: 4,
     //   required: true,
     // },
-    words: [wordsSchema],
+    words: [Words],
   },
   {
     timestamps: true,
