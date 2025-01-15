@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 const Schema = mongoose.Schema;
 import bcrypt from "bcrypt";
-import Words from "./words.js";
+import Words from "./words.mjs"; // ! import not working
 
 const SALT_ROUNDS = 6;
 
@@ -30,7 +30,12 @@ const userSchema = new Schema(
     //   maxLength: 4,
     //   required: true,
     // },
-    words: [Words],
+    words: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Words",
+      },
+    ],
   },
   {
     timestamps: true,

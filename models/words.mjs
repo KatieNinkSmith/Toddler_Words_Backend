@@ -33,6 +33,11 @@ const wordsSchema = new Schema({
   },
 });
 
-const Words = mongoose.model("Word", wordsSchema);
+wordsSchema.index({ category: 1, family: 1 });
+wordsSchema.index({ category: 1, places: 1 });
+wordsSchema.index({ category: 1, clothing: 1 });
+wordsSchema.index({ category: 1, things: 1 });
+
+const Words = mongoose.model("Words", wordsSchema); // Make sure the model name is "Words"
 
 export default Words;

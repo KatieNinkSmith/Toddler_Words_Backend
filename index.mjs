@@ -11,6 +11,7 @@ import cors from "cors";
 
 // TODO import routes
 import users from "./routes/users.mjs";
+import words from "./routes/words.mjs";
 
 // set up PORT
 const PORT = process.env.PORT || 5000;
@@ -29,6 +30,7 @@ app.get("/", (req, res) => {
 
 // TODO endpoint routes
 app.use("/api/users", users);
+app.use("/api/words", words);
 
 // global error handling
 app.use((err, _req, res, next) => {

@@ -30,6 +30,10 @@ async function login(req, res) {
   }
 }
 
+async function editProfile() {}
+
+async function deleteProfile() {}
+
 // function to create JTW for users
 function createJWT(user) {
   return jwt.sign(
@@ -40,4 +44,4 @@ function createJWT(user) {
   );
 }
 
-export default { create, createJWT, login };
+export default { create, createJWT, login, editProfile, deleteProfile };
