@@ -1,7 +1,6 @@
 import mongoose from "mongoose";
 const Schema = mongoose.Schema;
 import bcrypt from "bcrypt";
-import Words from "./words.mjs"; // ! import not working
 
 const SALT_ROUNDS = 6;
 

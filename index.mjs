@@ -1,6 +1,6 @@
 import express from "express";
 import dotenv from "dotenv";
-import logger from "morgan";
+import logger from "morgan"; // !
 
 dotenv.config();
 
@@ -11,7 +11,7 @@ import cors from "cors";
 
 // TODO import routes
 import users from "./routes/users.mjs";
-import words from "./routes/words.mjs";
+import words from "./routes/words.mjs"; //!
 
 // set up PORT
 const PORT = process.env.PORT || 5000;
@@ -25,12 +25,12 @@ app.use(express.json()); // to parse json data
 
 // TODO routes
 app.get("/", (req, res) => {
-  res.send("Welcome to Toddler Words API");
+  res.send("Welcome to Toddler Words API"); // ! move above endpoints
 });
 
 // TODO endpoint routes
 app.use("/api/users", users);
-app.use("/api/words", words);
+app.use("/api/words", words); // !
 
 // global error handling
 app.use((err, _req, res, next) => {
