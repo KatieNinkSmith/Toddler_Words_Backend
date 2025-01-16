@@ -1,4 +1,6 @@
 import Words from "../models/words.mjs";
+import multer from "multer";
+const upload = multer({ dest: "uploads/" });
 
 // get all words for the user
 async function getWords(req, res) {
