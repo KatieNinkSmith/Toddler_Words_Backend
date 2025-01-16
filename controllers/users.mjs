@@ -11,10 +11,8 @@ async function create(req, res) {
       return res.status(400).json({ message: "All fields are required" });
     }
 
-    const hashedPassword = await bcrypt.hash(password, 10);
     const createdUser = await User.create({
       ...req.body,
-      password: hashedPassword,
     });
     const token = createJWT(createdUser);
     res.status(200).json(token);
@@ -23,15 +21,18 @@ async function create(req, res) {
   }
 }
 
-// allows user to login to their account
 async function login(req, res) {
   try {
+    // query the database to find a user with the email provided
     const user = await User.findOne({ email: req.body.email });
+    // if the email does not exsist, throw an error
+    const userPassword = user.password;
+
     if (!user) throw new Error("User not found");
-    // * if we find the user, compare the password, but it is stored encrypted
-    // * 1st argument is from the credentials that the user typed in
-    // * 2nd argument is what is stored in the database
-    const match = await bcrypt.compare(req.body.password, user.password);
+    // if we find the user, compare the password, but it is stored encrypted
+    // 1st argument is from the credentials that the user typed in
+    // 2nd arguemtn is what is stored in the database
+    const match = await bcrypt.compare(req.body.password, userPassword);
     if (!match) throw new Error("Invalid password");
     const token = createJWT(user);
     res.json(token);

@@ -5,6 +5,7 @@ const router = express.Router();
 import userController from "../controllers/words.mjs";
 import multer from "multer";
 const upload = multer({ dest: "uploads/" });
+import Words from "../models/words.mjs";
 
 // // this corresponds to get all user's words on the frontend
 // router.get("/:id/words", userController.getWords);
@@ -18,25 +19,20 @@ const upload = multer({ dest: "uploads/" });
 // this corresponds to create a user's word in the front end
 // router.post("/upload", userController.createWord);
 router.post(
-  "/upload",
+  "/",
   upload.fields([
     { name: "audio", maxCount: 1 },
     { name: "image", maxCount: 1 },
   ]),
-  (req, res) => {
-    const { word, category, userId } = req.body;
-    const audioFile = req.files.audio[0]; // Access the uploaded audio file
-    const imageFile = req.files.image[0]; // Access the uploaded image file
+  async (req, res) => {
+    console.log(req.body);
 
-    // Process the data here (e.g., save it to a database)
-    console.log("Received word:", word);
-    console.log("Received category:", category);
-    console.log("Received userId:", userId);
-    console.log("Received audio file:", audioFile);
-    console.log("Received image file:", imageFile);
+    const { word, category, _id } = req.body; // Form data
+    console.log("Word:", word);
+    console.log("Category:", category);
+    console.log("User ID:", _id);
 
-    // Respond to the client
-    res.status(200).json({ message: "Word saved successfully" });
+    res.status(200).json({ message: "Word and files uploaded successfully" });
   }
 );
 

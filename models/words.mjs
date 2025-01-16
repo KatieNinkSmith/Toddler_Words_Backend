@@ -2,6 +2,10 @@ import mongoose from "mongoose";
 const Schema = mongoose.Schema;
 
 const wordsSchema = new Schema({
+  words: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "_id",
+  },
   category: {
     type: String,
     required: true,
@@ -25,11 +29,9 @@ const wordsSchema = new Schema({
   },
   image: {
     type: String,
-    required: true,
   },
   audio: {
     type: String,
-    required: true,
   },
 });
 

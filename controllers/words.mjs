@@ -40,7 +40,9 @@ async function category(req, res) {
 // allow user to create a word
 async function createWord(req, res) {
   try {
+    console.log(req.body);
     const createdWord = await Words.create(req.body);
+    console.log(createdWord);
     res.status(200).json(createdWord);
   } catch (err) {
     res.status(400).send(err);
