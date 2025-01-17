@@ -58,7 +58,7 @@ async function createWord(req, res) {
 // allow a user to edit their created word
 async function editWord(req, res) {
   console.log(req.params, "url id");
-  console.log(req.body, "why you forget");
+  console.log(req.body, "why you no work!!!!");
 
   // Basic validation (optional, depending on your requirements)
   if (!req.body || Object.keys(req.body).length === 0) {
@@ -66,24 +66,29 @@ async function editWord(req, res) {
   }
 
   try {
+    console.log(req.body, "you in here");
+    console.log(req.params.id);
+    const foundWord = await Words.findById(req.params.id);
+    console.log(foundWord, "wheres the word");
     const updatedWord = await Words.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
     });
+    console.log(updatedWord, "updated");
     res.status(200).json(updatedWord);
   } catch (err) {
     res.status(400).send(err);
   }
 }
 
-// // allow user to delete their created word
-// async function deleteWord(req, res) {
-//   try {
-//     const deletedWord = await Words.findByIdAndDelete(req.params.id);
-//     res.status(200).json(deletedWord);
-//   } catch (err) {
-//     res.status(400).send(err);
-//   }
-// }
+// allow user to delete their created word
+async function deleteWord(req, res) {
+  try {
+    const deletedWord = await Words.findByIdAndDelete(req.params.id);
+    res.status(200).json(deletedWord);
+  } catch (err) {
+    res.status(400).send(err);
+  }
+}
 
 export default {
   getWords,
@@ -91,5 +96,5 @@ export default {
   findByCategory,
   createWord,
   editWord,
-  // deleteWord,
+  deleteWord,
 };

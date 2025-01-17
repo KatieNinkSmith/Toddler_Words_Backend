@@ -20,9 +20,9 @@ router.get("/:user/:category", wordsController.findByCategory);
 router.post("/", wordsController.createWord);
 
 // this corresponds to edit a user's word on the frontend
-router.put("/:id/edit", wordsController.editWord);
+router.put("/:id", wordsController.editWord);
 
-// // this corresponds to delete a user's word on the frontend
-// router.delete("/:id/:word", wordsController.deleteWord);
+// this corresponds to delete a user's word on the frontend
+router.delete("/:id", wordsController.deleteWord);
 
 export default router;
