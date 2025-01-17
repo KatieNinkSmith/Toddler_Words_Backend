@@ -1,45 +1,56 @@
 import mongoose from "mongoose";
 const Schema = mongoose.Schema;
+import Users from "./users.mjs";
 
-const wordsSchema = new Schema({
-  words: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "_id",
-  },
-  category: {
-    type: String,
-    required: true,
-    enum: {
-      values: [
-        "colors",
-        "animals",
-        "counting",
-        "food",
-        "family",
-        "places",
-        "things",
-        "clothing",
-      ],
-      message: "Category must be selected",
+const wordsSchema = new Schema(
+  {
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
+    category: {
+      type: String,
+      required: true,
+      enum: {
+        values: [
+          "colors",
+          "animals",
+          "counting",
+          "food",
+          "family",
+          "places",
+          "things",
+          "clothing",
+        ],
+        lowercase: true,
+        message: "Category must be selected",
+      },
+    },
+    word: {
+      type: String,
+      required: true,
+    },
+    image: {
+      type: String,
+      default: null,
+    },
+    audio: {
+      type: String,
+      default: null,
     },
   },
-  word: {
-    type: String,
-    required: true,
-  },
-  image: {
-    type: String,
-  },
-  audio: {
-    type: String,
-  },
-});
+  {
+    timestamps: true,
+  }
+);
 
 wordsSchema.index({ category: 1, family: 1 });
 wordsSchema.index({ category: 1, places: 1 });
 wordsSchema.index({ category: 1, clothing: 1 });
 wordsSchema.index({ category: 1, things: 1 });
+wordsSchema.index({ user: 1, _id: 1 });
 
-const Words = mongoose.model("Words", wordsSchema); // Make sure the model name is "Words"
+const Words = mongoose.model("Word", wordsSchema); // Make sure the model name is "Words"
 
 export default Words;

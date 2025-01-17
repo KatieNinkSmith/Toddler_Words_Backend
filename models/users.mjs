@@ -32,7 +32,7 @@ const userSchema = new Schema(
     words: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Words",
+        ref: "Word",
       },
     ],
   },

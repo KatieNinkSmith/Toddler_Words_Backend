@@ -18,23 +18,21 @@ import Words from "../models/words.mjs";
 
 // this corresponds to create a user's word in the front end
 // router.post("/upload", userController.createWord);
-router.post(
-  "/",
-  upload.fields([
-    { name: "audio", maxCount: 1 },
-    { name: "image", maxCount: 1 },
-  ]),
-  async (req, res) => {
-    console.log(req.body);
-
-    const { word, category, _id } = req.body; // Form data
-    console.log("Word:", word);
-    console.log("Category:", category);
-    console.log("User ID:", _id);
-
+router.post("/", async (req, res) => {
+  try {
+    console.log(req.body, "sent");
+    // const { word, category, user } = req.body; // Form data
+    // console.log(req.body.word, req.body.category, req.body.user, "sent info");
+    const createdWord = new Words(req.body);
+    console.log(createdWord, "next step");
+    createdWord.save();
+    console.log(createdWord, "new");
     res.status(200).json({ message: "Word and files uploaded successfully" });
+  } catch (err) {
+    console.log("its not adding");
+    res.status(400).send(err);
   }
-);
+});
 
 // // this corresponds to edit a user's word on the frontend
 // router.put("/:id/:word", userController.editWord);
