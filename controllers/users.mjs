@@ -14,6 +14,7 @@ async function create(req, res) {
     const createdUser = await User.create({
       ...req.body,
     });
+    console.log(createdUser);
     const token = createJWT(createdUser);
     res.status(200).json(token);
   } catch (err) {
