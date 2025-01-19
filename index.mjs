@@ -17,7 +17,7 @@ app.use(express.json()); // to parse json data
 
 app.get("/", (req, res) => {
   res.send(
-    <>
+    <div>
       <h1>Welcome to Toddler Words API</h1>
       <pre>
         The end points for the WORDS are: GET:
@@ -42,7 +42,7 @@ app.get("/", (req, res) => {
         required body is; email: "" password: "" **_ need to add in the
         functionality for edit and delete of a user _**
       </pre>
-    </>
+    </div>
   );
 });
 
