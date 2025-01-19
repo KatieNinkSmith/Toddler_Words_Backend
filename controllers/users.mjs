@@ -6,11 +6,9 @@ import bcrypt from "bcrypt";
 async function create(req, res) {
   try {
     const { email, password, name } = req.body;
-
     if (!email || !password || !name) {
       return res.status(400).json({ message: "All fields are required" });
     }
-
     const createdUser = await User.create({
       ...req.body,
     });
@@ -24,15 +22,9 @@ async function create(req, res) {
 
 async function login(req, res) {
   try {
-    // query the database to find a user with the email provided
     const user = await User.findOne({ email: req.body.email });
-    // if the email does not exsist, throw an error
     const userPassword = user.password;
-
     if (!user) throw new Error("User not found");
-    // if we find the user, compare the password, but it is stored encrypted
-    // 1st argument is from the credentials that the user typed in
-    // 2nd arguemtn is what is stored in the database
     const match = await bcrypt.compare(req.body.password, userPassword);
     if (!match) throw new Error("Invalid password");
     const token = createJWT(user);
@@ -42,6 +34,7 @@ async function login(req, res) {
   }
 }
 
+// TODO
 // allows user to edit their profile
 async function editProfile(req, res) {
   try {
@@ -54,6 +47,7 @@ async function editProfile(req, res) {
   }
 }
 
+// TODO
 // allows user to delete their account and associated data
 async function deleteProfile(req, res) {
   try {
@@ -66,12 +60,7 @@ async function deleteProfile(req, res) {
 
 // function to create JTW for users
 function createJWT(user) {
-  return jwt.sign(
-    // data payload
-    { user },
-    process.env.SECRET,
-    { expiresIn: "24h" }
-  );
+  return jwt.sign({ user }, process.env.SECRET, { expiresIn: "24h" });
 }
 
 export default { create, createJWT, login, editProfile, deleteProfile };

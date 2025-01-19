@@ -1,5 +1,3 @@
-// ** routes/words.mjs
-// ** imports
 import express from "express";
 const router = express.Router();
 import wordsController from "../controllers/words.mjs";
@@ -7,10 +5,10 @@ import wordsController from "../controllers/words.mjs";
 // const upload = multer({ dest: "uploads/" });
 import Words from "../models/words.mjs";
 
-// this corresponds to get all user's words on the frontend
+// this corresponds to get all words on the frontend
 router.get("/", wordsController.getWords);
 
-// this corresponds to get a user's word on the frontend
+// this corresponds to get all of a user's word on the frontend
 router.get("/:user", wordsController.userWords);
 
 // this corresponds to user's word in a category

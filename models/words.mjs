@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
 const Schema = mongoose.Schema;
-import Users from "./users.mjs";
 
 const wordsSchema = new Schema(
   {
@@ -51,6 +50,6 @@ wordsSchema.index({ category: 1, clothing: 1 });
 wordsSchema.index({ category: 1, things: 1 });
 wordsSchema.index({ user: 1, _id: 1 });
 
-const Words = mongoose.model("Word", wordsSchema); // Make sure the model name is "Words"
+const Words = mongoose.model("Word", wordsSchema);
 
 export default Words;

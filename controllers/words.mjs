@@ -1,4 +1,5 @@
 import Words from "../models/words.mjs";
+// TODO: allows for file and blob upload still working on how to implement correctly
 // import multer from "multer";
 // const upload = multer({ dest: "uploads/" });
 
@@ -14,7 +15,6 @@ async function getWords(req, res) {
 
 // get words for one user
 async function userWords(req, res) {
-  // console.log(req.params);
   try {
     const foundWords = await Words.find({ user: req.params.user });
     res.status(200).json(foundWords);
@@ -25,13 +25,11 @@ async function userWords(req, res) {
 
 // get all words from a category for the user
 async function findByCategory(req, res) {
-  // console.log(req.params, "find by category");
   try {
     const foundCategory = await Words.find({
       user: req.params.user,
       category: req.params.category,
     });
-    // .all({ category: req.params.category,});
     res.status(200).json(foundCategory);
   } catch (err) {
     res.status(400).send(err);
@@ -41,41 +39,23 @@ async function findByCategory(req, res) {
 // allow user to create a word
 async function createWord(req, res) {
   try {
-    // console.log(req.body, "sent");
-    // const { word, category, user } = req.body; // Form data
-    // console.log(req.body.word, req.body.category, req.body.user, "sent info");
     const createdWord = new Words(req.body);
-    // console.log(createdWord, "next step");
     createdWord.save();
-    // console.log(createdWord, "new");
     res.status(200).json({ message: "Word and files uploaded successfully" });
   } catch (err) {
-    // console.log("its not adding");
     res.status(400).send(err);
   }
 }
 
 // allow a user to edit their created word
 async function editWord(req, res) {
-  // console.log(req.params, "id");
-  // const { word, category, user } = req.body;
-  // console.log(word, category, user, "why you no work!!!!");
-
-  // // Basic validation (optional, depending on your requirements)
-  // if (!req.body || Object.keys(req.body).length === 0) {
-  //   return res.status(400).json({ message: "No data provided for update" });
-  // }
-
+  if (!req.body || Object.keys(req.body).length === 0) {
+    return res.status(400).json({ message: "No data provided for update" });
+  }
   try {
-    // console.log(req.body, "you in here");
-    // console.log(req.params.id);
-    // const foundWord = await Words.findById(req.params);
-    // console.log(foundWord, "wheres the word");
     const updatedWord = await Words.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
     });
-    // console.log(updatedWord);
-    // console.log(updatedWord, "updated");
     res.status(200).json(updatedWord);
   } catch (err) {
     res.status(400).send(err);
