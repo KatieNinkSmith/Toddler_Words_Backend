@@ -34,6 +34,10 @@ const wordsSchema = new Schema(
       type: String,
       default: null,
     },
+    imageURL: {
+      type: String,
+      default: null,
+    },
     audio: {
       type: String,
       default: null,
