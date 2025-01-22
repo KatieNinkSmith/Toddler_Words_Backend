@@ -90,10 +90,12 @@ async function editWord(req, res) {
   if (!req.body || Object.keys(req.body).length === 0) {
     return res.status(400).json({ message: "No data provided for update" });
   }
+  console.log("Request body:", req.body);
   try {
     const updatedWord = await Words.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
     });
+    console.log(updatedWord);
     res.status(200).json(updatedWord);
   } catch (err) {
     res.status(400).send(err);
