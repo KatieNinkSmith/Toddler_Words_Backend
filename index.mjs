@@ -16,7 +16,7 @@ app.use(cors()); // *to ensure communication works
 app.use(express.json()); // to parse json data
 
 app.get("/", (req, res) => {
-  res.send(<h1>Welcome to Toddler Words API</h1>);
+  res.send("Welcome to Toddler Words API");
 });
 
 app.use("/api/users", users);
