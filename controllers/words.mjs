@@ -40,40 +40,13 @@ async function findByCategory(req, res) {
 
 // Allow user to create a word
 async function createWord(req, res) {
-  // Handle image upload (file or URL)
-  let imagePath = req.body.imageURL; // Default to the imageURL if provided
-
-  if (req.file) {
-    // If a file is uploaded, process the image
-    const uploadedImagePath = path.join(
-      __dirname,
-      "..",
-      "uploads",
-      req.file.filename
-    );
-
-    // (Optional) Upload the file to cloud storage (like AWS S3, Cloudinary, etc.)
-    try {
-      const cloudImageURL = await uploadFileToCloudStorage(uploadedImagePath);
-      imagePath = cloudImageURL; // Use cloud URL
-    } catch (error) {
-      console.error("Error uploading file to cloud storage:", error);
-      return res
-        .status(500)
-        .json({ message: "Error uploading image to cloud storage" });
-    }
-
-    // Optionally, remove the file from the server after uploading it to cloud storage
-    fs.unlinkSync(uploadedImagePath);
-  }
-
   // Create word and save to database
-  const { word, category, audio, user } = req.body;
+  const { word, category, audio, image, user } = req.body;
   try {
     const createdWord = new Words({
       word,
       category,
-      image: imagePath, // Save the image path (URL or local path)
+      image,
       audio,
       user,
     });

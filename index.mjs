@@ -16,30 +16,7 @@ app.use(cors()); // *to ensure communication works
 app.use(express.json()); // to parse json data
 
 app.get("/", (req, res) => {
-  res.send(
-    "Welcome to Toddler Words API",
-    "The end points for the WORDS are:,",
-    "GET: https://toddler-words-backend.onrender.com/api/words",
-    "This returns all created words in the database",
-    "GET: https://toddler-words-backend.onrender.com/api/words/:userid",
-    "This returns all the created words by a single user",
-    "GET: https://toddler-words-backend.onrender.com/api/words/:userid/:category",
-    "This returns all the created words in a specific category by a single user",
-    "POST: https://toddler-words-backend.onrender.com/api/words",
-    "This is the route to create a word the required body to send is;",
-    "name: '', category: '', user: userId",
-    "PUT: https://toddler-words-backend.onrender.com/api/words/:id",
-    "This route is to edit a word the required body is;",
-    "name: '', category: '', user: userId",
-    "DELETE: https://toddler-words-backend.onrender.com/api/words/:id",
-    "This route is to delete a word from the database The end points for the USERS are:",
-    "POST: https://toddler-words-backend.onrender.com/api/users",
-    "This is the route to create a new user required body is;",
-    "name: '', email: '', password: ''",
-    "POST: https://toddler-words-backend.onrender.com/api/users/login",
-    "This is the route to log a user into the front end to display their created words required body is;",
-    "email: '', password: ''"
-  );
+  res.send(<h1>Welcome to Toddler Words API</h1>);
 });
 
 app.use("/api/users", users);
